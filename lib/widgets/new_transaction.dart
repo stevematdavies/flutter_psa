@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 class NewTransaction extends StatelessWidget {
-  NewTransaction({Key? key}) : super(key: key);
+  final Function addTransactionCallback;
 
   final titleInputController = TextEditingController();
   final expenseInputController = TextEditingController();
+
+  NewTransaction(this.addTransactionCallback, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +28,10 @@ class NewTransaction extends StatelessWidget {
             Container(
               margin: const EdgeInsets.only(top: 10, bottom: 10),
               child: OutlinedButton(
-                  onPressed: () {
-                    print(titleInputController.text);
-                    print(expenseInputController.text);
-                  },
+                  onPressed: () => addTransactionCallback(
+                      titleInputController.text,
+                      double.parse(expenseInputController.text)
+                  ),
                   child: const Text(
                     "Add Transaction",
                     style: TextStyle(color: Colors.indigo),
