@@ -53,7 +53,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _showAddNewTransaction(BuildContext ctx) {
     showModalBottomSheet(
-        context: ctx, builder: (_) => NewTransaction(_addNewTransaction));
+        context: ctx, builder: (_) => GestureDetector(
+        onTap: (){},
+        behavior: HitTestBehavior.opaque,
+        child: NewTransaction(_addNewTransaction),
+    ),);
   }
 
   @override
