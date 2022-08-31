@@ -28,13 +28,13 @@ class NewTransaction extends StatelessWidget {
           children: <Widget>[
             TextField(
               controller: titleInputController,
-              onSubmitted: (_) => _submitData,
+              onSubmitted: (_) => _submitData(),
               decoration: const InputDecoration(labelText: "Expense Title"),
             ),
             TextField(
               controller: expenseInputController,
               keyboardType: TextInputType.number,
-              onSubmitted: (_) => _submitData,
+              onSubmitted: (_) => _submitData(),
               decoration: const InputDecoration(labelText: "Expense Amount"),
             ),
             Container(
