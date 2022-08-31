@@ -8,6 +8,15 @@ class NewTransaction extends StatelessWidget {
 
   NewTransaction(this.addTransactionCallback, {Key? key}) : super(key: key);
 
+  void _submitData() {
+    final title = titleInputController.text;
+    final amount = double.parse(expenseInputController.text);
+    if (title.isEmpty || amount <= 0) {
+      return;
+    }
+    addTransactionCallback(title,amount);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -19,19 +28,19 @@ class NewTransaction extends StatelessWidget {
           children: <Widget>[
             TextField(
               controller: titleInputController,
+              onSubmitted: (_) => _submitData,
               decoration: const InputDecoration(labelText: "Expense Title"),
             ),
             TextField(
               controller: expenseInputController,
+              keyboardType: TextInputType.number,
+              onSubmitted: (_) => _submitData,
               decoration: const InputDecoration(labelText: "Expense Amount"),
             ),
             Container(
               margin: const EdgeInsets.only(top: 10, bottom: 10),
               child: OutlinedButton(
-                  onPressed: () => addTransactionCallback(
-                      titleInputController.text,
-                      double.parse(expenseInputController.text)
-                  ),
+                  onPressed: _submitData,
                   child: const Text(
                     "Add Transaction",
                     style: TextStyle(color: Colors.indigo),
