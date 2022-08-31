@@ -11,9 +11,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Personal Expenses',
-      home: MyHomePage(),
+      theme: ThemeData(
+        primarySwatch: Colors.purple,
+        colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.amber),
+      ),
+      home: const MyHomePage(),
     );
   }
 }
@@ -72,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
             icon: const Icon(Icons.add),
           )
         ],
-        title: const Text("Personal Expenses App"),
+        title: const Text('Personal Expenses'),
       ),
       body: SingleChildScrollView(
         child: Column(
