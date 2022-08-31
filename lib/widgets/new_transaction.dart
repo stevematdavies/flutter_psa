@@ -39,11 +39,11 @@ class NewTransaction extends StatelessWidget {
             ),
             Container(
               margin: const EdgeInsets.only(top: 10, bottom: 10),
-              child: OutlinedButton(
+              child: TextButton(
                   onPressed: _submitData,
                   child: const Text(
                     "Add Transaction",
-                    style: TextStyle(color: Colors.indigo),
+                    style: TextStyle(color: Colors.purple),
                   )),
             )
           ],
