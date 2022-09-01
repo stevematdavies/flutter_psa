@@ -18,10 +18,10 @@ class MyApp extends StatelessWidget {
           fontFamily: "Quicksand",
           textTheme: ThemeData.light().textTheme.copyWith(
                   titleMedium: const TextStyle(
-                fontFamily: "OpenSans",
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              )),
+                    fontFamily: "OpenSans",
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  )),
           colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple)
               .copyWith(secondary: Colors.amber),
           appBarTheme: const AppBarTheme(

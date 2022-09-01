@@ -26,48 +26,21 @@ class TransactionList extends StatelessWidget {
             ])
           : ListView.builder(
               itemBuilder: (ctx, i) {
+                final Transaction t = transactions[i];
                 return Card(
-                  elevation: 2,
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                            vertical: 10, horizontal: 15),
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                color: Theme.of(context).colorScheme.primary,
-                                width: 2)),
-                        padding: const EdgeInsets.all(10),
-                        child: Text(
-                          "€${transactions[i].amount.toStringAsFixed(2)}",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                        ),
-                      ),
-                      Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Container(
-                                margin: const EdgeInsets.only(bottom: 4),
-                                child: Text(
-                                  transactions[i].title,
-                                  style:
-                                      Theme.of(context).textTheme.titleMedium,
-                                )),
-                            Text(
-                                DateFormat('d MMM yyyy')
-                                    .format(transactions[i].date),
-                                style: const TextStyle(
-                                  color: Colors.grey,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 14,
-                                )),
-                          ])
-                    ],
+                  margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
+                  elevation: 5,
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      backgroundColor: Colors.purple,
+                      radius: 30,
+                      child:  Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: FittedBox(
+                                child: Text("€${t.amount}"))),
+                    ),
+                    title: Text(t.title, style: Theme.of(context).textTheme.titleMedium),
+                    subtitle: Text(DateFormat('dd/MM/yyyy').format(t.date)),
                   ),
                 );
               },
