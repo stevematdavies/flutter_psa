@@ -69,6 +69,12 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void _deleteTransaction(String txId){
+    setState(() {
+      _userTransactions.removeWhere((t) => t.id == txId);
+    });
+  }
+
   void _showAddNewTransaction(BuildContext ctx) {
     showModalBottomSheet(
       context: ctx,
@@ -79,6 +85,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+
+
 
   List<Transaction> get _recentTransactions {
     return List.from(_userTransactions.where((Transaction t) =>
@@ -102,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Chart(_recentTransactions),
-            TransactionList(_userTransactions)
+            TransactionList(_userTransactions, _deleteTransaction)
           ],
         ),
       ),
