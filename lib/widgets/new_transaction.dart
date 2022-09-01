@@ -19,10 +19,10 @@ class _NewTransactionState extends State<NewTransaction> {
   void _submitData() {
     final title = _titleInputController.text;
     final amount = double.parse(_expenseInputController.text);
-    if (title.isEmpty || amount <= 0) {
+    if (title.isEmpty || amount <= 0 || _selectedDateOfTransaction == null) {
       return;
     }
-    widget.addTransactionCallback(title, amount);
+    widget.addTransactionCallback(title, amount, _selectedDateOfTransaction);
 
     Navigator.of(context).pop();
   }
@@ -89,7 +89,8 @@ class _NewTransactionState extends State<NewTransaction> {
             Container(
               margin: const EdgeInsets.only(top: 10, bottom: 10),
               child: ElevatedButton(
-                  onPressed: _submitData, child: const Text("Add Transaction")),
+                  onPressed: _submitData,
+                  child: const Text("Add Transaction")),
             )
           ],
         ),
