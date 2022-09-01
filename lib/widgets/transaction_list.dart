@@ -32,7 +32,7 @@ class TransactionList extends StatelessWidget {
                   elevation: 5,
                   child: ListTile(
                     leading: CircleAvatar(
-                      backgroundColor: Colors.purple,
+                      backgroundColor: Theme.of(context).colorScheme.primary,
                       radius: 30,
                       child:  Padding(
                             padding: const EdgeInsets.all(10),
