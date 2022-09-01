@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personal_expenses_app/widgets/chart.dart';
 import 'package:personal_expenses_app/widgets/new_transaction.dart';
 import 'package:personal_expenses_app/widgets/transaction_list.dart';
 
@@ -14,22 +15,21 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Personal Expenses',
       theme: ThemeData(
-        fontFamily: "Quicksand",
-        textTheme: ThemeData.light().textTheme.copyWith(titleMedium: const TextStyle(
-          fontFamily: "OpenSans",
-          fontWeight: FontWeight.bold,
-          fontSize: 18,
-        )),
-        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple)
-          .copyWith(secondary: Colors.amber),
-        appBarTheme: const AppBarTheme(
-          titleTextStyle: TextStyle(
+          fontFamily: "Quicksand",
+          textTheme: ThemeData.light().textTheme.copyWith(
+                  titleMedium: const TextStyle(
+                fontFamily: "OpenSans",
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              )),
+          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple)
+              .copyWith(secondary: Colors.amber),
+          appBarTheme: const AppBarTheme(
+              titleTextStyle: TextStyle(
             fontFamily: "OpenSans",
             fontSize: 20,
             fontWeight: FontWeight.bold,
-          )
-        )
-      ),
+          ))),
       home: const MyHomePage(),
     );
   }
@@ -44,7 +44,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _userTransactions = [
-   /* Transaction(
+    /* Transaction(
       id: '1',
       title: 'New Shoes',
       amount: 69.99,
@@ -79,6 +79,11 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  List<Transaction> get _recentTransactions {
+    return List.from(_userTransactions.where((Transaction t) =>
+        t.date.isAfter(DateTime.now().subtract(const Duration(days: 7)))));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,13 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            const Card(
-              color: Colors.blue,
-              child: SizedBox(
-                width: double.infinity,
-                child: Text("CHART!"),
-              ),
-            ),
+            Chart(_recentTransactions),
             TransactionList(_userTransactions)
           ],
         ),
