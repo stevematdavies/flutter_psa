@@ -17,12 +17,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           fontFamily: "Quicksand",
           textTheme: ThemeData.light().textTheme.copyWith(
-              titleMedium: const TextStyle(
-                fontFamily: "OpenSans",
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
+                titleMedium: const TextStyle(
+                  fontFamily: "OpenSans",
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
               ),
-          ),
           colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple)
               .copyWith(secondary: Colors.amber),
           appBarTheme: const AppBarTheme(
@@ -42,8 +42,10 @@ class MyHomePage extends StatefulWidget {
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
+
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _userTransactions = [];
+  bool _isChartShown = false;
 
   void _addNewTransaction(String txTitle, double txAmt, DateTime txDate) {
     setState(() {
@@ -55,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void _deleteTransaction(String txId){
+  void _deleteTransaction(String txId) {
     setState(() {
       _userTransactions.removeWhere((t) => t.id == txId);
     });
@@ -79,30 +81,50 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-     
-     final appBar = AppBar(
-        actions: <Widget>[
-          IconButton(
-            onPressed: () => _showAddNewTransaction(context),
-            icon: const Icon(Icons.add),
-          )
-        ],
-        title: const Text('Personal Expenses'),
-      );
-  
+    final appBar = AppBar(
+      actions: <Widget>[
+        IconButton(
+          onPressed: () => _showAddNewTransaction(context),
+          icon: const Icon(Icons.add),
+        )
+      ],
+      title: const Text('Personal Expenses'),
+    );
+
     return Scaffold(
       appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-           SizedBox(
-              height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.3,
-              child: Chart(_recentTransactions),
-              ),
-            SizedBox(
-              height: (MediaQuery.of(context).size.height - appBar.preferredSize.height  - MediaQuery.of(context).padding.top) * 0.7,
-              child: TransactionList(_userTransactions, _deleteTransaction))
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text("Show Chart"),
+                Switch(
+                  value: _isChartShown,
+                  onChanged: (v) {
+                    setState(() {
+                      _isChartShown = v;
+                    });
+                  },
+                ),
+              ],
+            ),
+            _isChartShown
+                ? SizedBox(
+                    height: (MediaQuery.of(context).size.height -
+                            appBar.preferredSize.height -
+                            MediaQuery.of(context).padding.top) *
+                        0.3,
+                    child: Chart(_recentTransactions))
+                : SizedBox(
+                    height: (MediaQuery.of(context).size.height -
+                            appBar.preferredSize.height -
+                            MediaQuery.of(context).padding.top) *
+                        0.7,
+                    child:
+                        TransactionList(_userTransactions, _deleteTransaction))
           ],
         ),
       ),
