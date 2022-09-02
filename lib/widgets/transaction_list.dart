@@ -33,21 +33,30 @@ class TransactionList extends StatelessWidget {
                 margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
                 elevation: 5,
                 child: ListTile(
-                  leading: CircleAvatar(
-                    backgroundColor: Theme.of(context).colorScheme.primary,
-                    radius: 30,
-                    child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: FittedBox(child: Text("€${t.amount}"))),
-                  ),
-                  title: Text(t.title,
-                      style: Theme.of(context).textTheme.titleMedium),
-                  subtitle: Text(DateFormat('dd/MM/yyyy').format(t.date)),
-                  trailing: IconButton(
-                      icon: const Icon(Icons.delete),
-                      color: Theme.of(context).errorColor,
-                      onPressed: () => deleteTransaction(t.id)),
-                ),
+                    leading: CircleAvatar(
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      radius: 30,
+                      child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: FittedBox(child: Text("€${t.amount}"))),
+                    ),
+                    title: Text(t.title,
+                        style: Theme.of(context).textTheme.titleMedium),
+                    subtitle: Text(DateFormat('dd/MM/yyyy').format(t.date)),
+                    trailing: MediaQuery.of(context).size.width > 460
+                        ? TextButton.icon(
+                            onPressed: () => deleteTransaction(t.id),
+                            icon: const Icon(Icons.delete),
+                            label: Text(
+                              "Delete",
+                              style: TextStyle(
+                                color: Theme.of(context).errorColor,
+                              ),
+                            ))
+                        : IconButton(
+                            icon: const Icon(Icons.delete),
+                            color: Theme.of(context).errorColor,
+                            onPressed: () => deleteTransaction(t.id))),
               );
             },
             itemCount: transactions.length,
